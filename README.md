@@ -1,2 +1,1 @@
-# ossre
-Open Source Software Requirements Engineering
+# ossre - Open Source Software Requirements Engineering
