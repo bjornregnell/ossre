@@ -1,2 +1,1 @@
-# OpenRE
-Open source software Requirements Engineering
+# OpenRE - Open Requirements Engineering
