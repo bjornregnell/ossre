@@ -1,0 +1,380 @@
+
+%%%%%%%%%%%%%%%%%%%%%%% file typeinst.tex %%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% This is the LaTeX source for the instructions to authors using
+% the LaTeX document class 'llncs.cls' for contributions to
+% the Lecture Notes in Computer Sciences series.
+% http://www.springer.com/lncs       Springer Heidelberg 2006/05/04
+%
+% It may be used as a template for your own input - copy it
+% to a new file with a new name and use it as the basis
+% for your article.
+%
+% NB: the document class 'llncs' has its own and detailed documentation, see
+% ftp://ftp.springer.de/data/pubftp/pub/tex/latex/llncs/latex2e/llncsdoc.pdf
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%\documentclass[runningheads,a4paper]{llncs}
+\documentclass[a4paper]{llncs}
+
+\usepackage{amssymb}
+\setcounter{tocdepth}{3}
+\usepackage{graphicx}
+\usepackage{xcolor} % added by BR to make colorbox for comments
+\usepackage[normalem]{ulem} %added by BR for striketrough \sout{Hello}
+\usepackage{wrapfig} % to make pictures flow inside the text and save space
+\usepackage{enumerate}
+\usepackage[shortlabels]{enumitem}
+\usepackage{todonotes}
+\usepackage{pifont}
+\usepackage{enumitem}
+\usepackage{tikz}
+\usetikzlibrary{positioning,fit}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+%\usepackage{times}
+\usepackage{tgtermes}
+%\usepackage{bera}
+\usepackage[scaled=0.93]{beramono}
+\usepackage[normalem]{ulem}
+\usepackage{cite}
+\usepackage{float}
+\usepackage{scalefnt}
+\usepackage{setspace}
+\usepackage{caption}
+\usepackage{subcaption}
+\captionsetup{compatibility=false}
+\usepackage{booktabs}
+
+\usepackage{url}
+\urldef{\mailsa}\path|{johan.linaker,bjorn.regnell}@cs.lth.se|
+\newcommand{\keywords}[1]{\par\addvspace\baselineskip
+\noindent\keywordname\enspace\ignorespaces#1}
+
+
+\newcommand{\BRcomment}[1]{\colorbox{yellow}{#1}}  % added by BR
+\newcommand{\BRcancel}[1]{\colorbox{yellow}{\sout{#1}}}  % added by BR
+
+\begin{document}
+
+\mainmatter  % start of an individual contribution
+
+% first the title is needed
+\title{A Contribution Management Framework for Firms\\
+Engaged in Open Source Software Ecosystems\\
+- A Research Preview}
+
+% a short form should be given in case it is too long for the running head
+\titlerunning{A Contribution Management Framework - A Research Preview}
+
+% the name(s) of the author(s) follow(s) next
+%
+% NB: Chinese authors should write their first names(s) in front of
+% their surnames. This ensures that the names appear correctly in
+% the running heads and the author index.
+%   
+\author{Johan Lin{\aa}ker and Bj{\"o}rn Regnell}
+%
+\authorrunning{Johan Lin{\aa}ker and Bj{\"o}rn Regnell}
+% (feature abused for this document to repeat the title also on left hand pages)
+
+% the affiliations are given next; don't give your e-mail address
+% unless you accept that it will be published
+\institute{Lund University, Lund, Sweden\\
+\mailsa}
+
+%
+% NB: a more complex sample for affiliations and the mapping to the
+% corresponding authors can be found in the file "llncs.dem"
+% (search for the string "\mainmatter" where a contribution starts).
+% "llncs.dem" accompanies the document class "llncs.cls".
+%
+
+\toctitle{Lecture Notes in Computer Science}
+\tocauthor{Authors' Instructions}
+\maketitle
+
+\vspace{-0.5cm}
+\begin{abstract}
+[\textbf{Context and motivation}]
+Contribution Management helps firms engaged in Open Source Software (OSS) ecosystems to create contribution strategies which motivate what they should contribute and when, but also what they should focus their resources on and to what extent. The motivation for developing tailored contribution strategies is to maximize return on investment and sustain the influence needed in the ecosystem.
+[\textbf{Question/Problem}] 
+We aim to develop a framework to help firms understand their current situation and create a starting point to develop an effective contribution management process. 
+[\textbf{Principal ideas/results}] 
+Through a design science approach, a prototype framework is created based on literature and validated iteratively with expert opinions through interviews.
+[\textbf{Contribution}] 
+In this research preview, we present our initial results after our first design cycle and consultation with one experienced OSS manager at a large OSS oriented software-intensive firm. The initial validation highlights importance of stakeholder identification and analysis, as well as the general need for contribution management and alignment with internal product planning. This encourages future work to develop the framework further using expert and case validation.
+
+\keywords{requirements engineering, open source, software ecosystem, open innovation, co-opetition, scoping, contribution strategy, contribution management}
+\end{abstract}
+
+
+\section{Introduction}
+\vspace{-0.3cm}
+
+% \todo[inline]{Research Preview - "Describe well-defined research ideas at an early stage of investigation which may not be fully developed. Research previews will be evaluated based on their relevance, novelty, and soundness of the described research."}
+
+Requirements Engineering (RE) concerns capturing the needs of the customer and translating these into a product that satisfies the elicited needs~\cite{aurum2005requirements}. For software-intensive firms, RE can therefore be considered as a pivotal part in the product planning and spans over different time horizons and abstractions, from requirements management, to release-planning, roadmapping and portfolio management~\cite{fricker2012software}. Firms operating in an Open Source Software (OSS) ecosystem have to consider participation in two such RE instances; one that regards the internal product planning facilitated by themselves, and one that regards the external product planning of the OSS project facilitated by the OSS ecosystem. In the latter, to impose their own agendas, firms have to collaborate and compete with other actors in the ecosystem that all have a stake in the OSS project that underpins the ecosystem~\cite{jansen2009business}. 
+
+To gain the influence needed in order to impose their agenda, align their internal RE with the ecosystem's RE and to maximize Return On Investment (ROI), firms need consider how to participate in the OSS ecosystem in terms of what they contribute and when (cf. requirements scoping~\cite{wnuk2012can}), but also what they should focus their resources on and to what extent. We choose to label this process as \emph{contribution management} and guidelines that come as output \emph{contribution strategies}~\cite{wnuk2012can}. To create these strategies, we believe that firms need to understand how they draw value~\cite{Aurum2007} from the OSS project and their ecosystems~\cite{jansen2009business}, and identify the related business requirements~\cite{wiegers2013software}. Further, firms need to understand the relation between the OSS projects, their ecosystems, and the firms' internal product planning~\cite{fricker2012software}, and as a consequence how important is it to be able to influence the RE in the OSS ecosystems~\cite{linaaker2016firms}. These factors need to align with the reasons for why firms make contributions and dedicate resources to the OSS project and its ecosystem, i.e., the foundations for the contribution management process.
+
+We aim to develop a contribution management framework to help firms understand their current situation and create a starting point that can help them construct guidelines for what they should contribute to the OSS ecosystems and when, i.e., contribution strategies~\cite{wnuk2012can}. We apply a design science approach~\cite{wieringa2014design} by first building on literature~\cite{munir2015open}, and then consult with experts for opinions in an iterative fashion. In this research preview we present our initial results after our first design cycle and consultation with an experienced OSS manager at a large OSS oriented software-intensive firm.
+
+
+
+% Open Innovation (OI) describes how firms can adapt their product development and business model to go beyond its borders in their process of creating, delivering and capturing value (monetary or non-monetary)~\cite{chesbrough2003open, osterwalder2010business}. For software-intensive firms the openness implied by OI comes in various forms, of which Open Source Software (OSS) is a common example~\cite{munir2015open}. By opening up, firms can get access to an external workforce which can potentially help to increase innovation, ease maintenance and shorten time-to-market~\cite{chesbrough2003open, henkel2006selective}.
+% help to strengthen their internal innovation, both in regards to their products and processes~\cite{chesbrough2003open}. The new workforce can further help to share the burden of maintenance and development, as well as potentially increase the quality of the software and decrease in the time-to-market~\cite{stuermer2009extending, ven2008challenges}. 
+% However, firms need to be aware how to best engage ecosystems surrounding the OSS projects~\cite{jansen2009business}, where requirements scoping plays an important part~\cite{wnuk2012can}.
+% , we refer the definition by Wnuk et al.~\cite{wnuk2012can}: \textit{``Requirements scoping is defined as a process of deciding: (1) which version of the OSS product should be utilized, (2) what should be added to the platform in order to create product differentiation and competitive advantage, (3) what shall be contributed to the OSS [ecosystem] (and when), and (4) how to influence the OSS [ecosystem] and become the leading stakeholder to maximize ROI and reduce uncertainty''}. 
+
+
+% The scoping process helps firms to motivate what they should contribute and when, but also what they should focus their resources on and to what extent~\cite{wnuk2012can}. Such guidelines are also referred to as contribution strategies~\cite{munir2015open}. To create such strategies, firms need to understand how they draw value~\cite{Aurum2007} from the OSS projects and their ecosystems~\cite{jansen2009business}, and identify the related business requirements~\cite{wiegers2013software}. Further, firms need to understand the relation between the OSS projects, their ecosystems, and the firms' internal product roadmaps~\cite{Komssi2015}, and as a consequence how important is it to be able to influence the requirements engineering process in the OSS ecosystems~\cite{linaaker2016firms}. These factors need to align with the reasons for why firms make contributions and dedicate resources to the OSS project and its ecosystem, i.e., the requirements scoping process. The motivation behind is to maximize return on investment (ROI) and sustain influence needed~\cite{wnuk2012can}.
+
+
+% for why something should be contributed, or resources dedicated on certain activities in the OSS ecosystem, should be identified and be motivated so that it connects to the requirements of the internal product roadmap and in the end, to the goal requirements connecting to the business model of the firm. Such alignment requires a self-awareness of why the firm is engaged in the OSS ecosystem, and what value the OSS project brings to the firm. We aim to develop a framework to help firms understand their current situation and create a starting point that can help them construct guidelines for what they should contribute to the OSS ecosystems and when, also referred to as contribution strategies~\cite{wnuk2012can}. We apply a design science approach by first building on OI and OSS literature~\cite{munir2015open, linaaker2015requirements}, and then consulting experts for opinions in an iterative fashion. In this research preview we present our initial results after our first design cycle and consultation with an experienced OSS manager at a large OSS oriented software-intensive firm.
+
+% Contribution strategies help firms to motivate what they should contribute and when, but also what they should focus their resources on and to what extent~\cite{wnuk2012can}. To create such strategies, firms need to understand how they draw value from the OSS project and its ecosystem, i.e., identify the related goal requirements. Further, they need to understand the importance of OSS project and its ecosystem in regards to their internal product roadmap, i.e., how they are related and, as a consequence, how important is it to be able to influence what requirements are implemented in the OSS project. These factors need to align with the reasons for why the firm makes contributions and dedicates resources to the OSS project and its ecosystem, i.e., the requirements scoping process. The rationale behind is to maximize ROI and sustain the influence needed in the ecosystem~\cite{wnuk2012can}. 
+
+% The paper is dispositioned as follows..
+
+
+% \section{Related Work}
+% \todo[inline]{Rewrite! Add original definition by Wnuk et al.}
+% Dahlander \& Magnusson~\cite{dahlander2008firms} show how firms may use the OSS communities in regards to their business model from an OI perspective. A firm may access the communities in order to extend the firms resource base, align the firm strategy with that of the OSS community and/or assimilate the community in order to integrate and share results with them. Dahlander \& Magnusson further explain in another study~\cite{dahlander2005relationships} how the relationships between the firm and the OSS ecosystem may be of different characters, e.g., by symbiotically giving back result to the ecosystem, or as a free-rider keeping modifications and new functionality to oneself. Pending on how open a firm chooses to be in regards to their business model, different strategies may be enforced. By selectively revealing, differentiating parts are kept internal while commodity parts are made open~\cite{henkel2006selective, west2003open}. With licensing schemas (cf. Dual-licensing~\cite{chesbrough2007open}), technology may be fully disclosed but under such conditions that competition may not exploit the OSS that may hurt the focal firm~\cite{west2003open}. Alternatively, everything may be disclosed under open and transparent conditions~\cite{chesbrough2007open}.
+
+% In the case where firms choose to selectively reveal, they need to be able to systematically judge what parts are to be considered commodity or of differentiating value. This is made further complicated as functionality sooner or later will be become commoditized as a result of a constantly progressing technology life cycles~\cite{van2009commodification}. To consider these aspects, firms should construct contribution strategy that can help them to focus their internal resources on value creating activities, rather than contributing unnecessary patches or differentiating features. Pending on what benefits or strategic goals a firm which to achieve, different rationale may exist for what is to be revealed. Based on a case study of the Linux kernel ecosystem, Henkel~\cite{henkel2006selective} reports how small firms reveal more as they are likely to benefit from the external development support. Component manufacturers also reported to contribute a lot as they have a good protection of the hardware they sell; software is seen as a complementary asset. In a follow-up study, Henkel~\cite{henkel2014emergence} further reported how openness had become a competitive edge, as customers had started request even more revealing.
+
+\vspace{-0.3cm}
+\section{Research Methodology}
+\vspace{-0.3cm}
+
+We consider the problem context of aligning the contribution management with a firm's internal product planning~\cite{fricker2012software} and business requirements~\cite{wiegers2013software} as a design problem. We adopt a design science approach~\cite{wieringa2014design} and define our design problem to:
+
+\begin{itemize}[nosep]\footnotesize
+    \item \textit{Improve alignment between a firm’s contribution management towards OSS projects with the firm’s internal product planning and business requirements,
+    by designing a framework
+    that can help the firm to create guidelines for what should be contributed and when,
+    in order for its developers to better decide what to contribute and how to prioritize their work. }
+\end{itemize}
+
+The treatment addressing the stated design problem includes the framework (i.e., the artifact~\cite{wieringa2014design}) as well as the interaction between it and the problem context, which in our case is constituted by firms engaged in an OSS ecosystem.
+
+% We will develop the treatment iteratively through a series of design cycles. Each cycle consists of three steps~\cite{wieringa2014design}: (1) problem investigation, (2) treatment design, and (3) treatment validation. First, the problem should be identified, explained and evaluated. Second, based on the identified problem context and formulation of the design problem, a treatment should be designed. This treatment regards development both of a prototype of an artifact and of the interaction between the prototype and the problem context. Third, to validate the treatment, the interaction between the prototype of the artifact and a model of the problem context is studied. The model of the problem context may also be referred to as a validation model, and simulates the interaction towards the prototype.
+
+In our study, we identify and explain the problem based on literature~\cite{munir2015open} and develop a prototype of an artifact along with a potential interaction set-up. As a validation model, we will use expert opinions where the prototype and interaction set-up is simulated through interviews. Based on the output of each interview, the treatment is refined and again validated in a new cycle. The interviews are semi-structured with introductory questions that covers current involvement in OSS ecosystems, contribution practices, and how internal RE functions relative the ecosystems'. In the second part, the framework is presented for the interviewee with an explanation and open discussion on its structure and content. In the third part, the interviewee and interviewer walk through the framework for an OSS ecosystem of the interviewee's choice. The interview ends with a discussion of usage scenarios, potential improvements and changes of the framework. The interviews are audio-recorded and transcribed.
+
+In this research preview, the results from the first design cycle is presented where our initial treatment design was validated with an OSS manager of a large OSS oriented software-intensive firm. Based on the output from the first interview, some factors in the original prototype was reordered and made clearer. E.g., the engagement and revealing strategies, originally elicited from Dahlander et al.~\cite{dahlander2008firms} was made more explicit, while the ecosystem stakeholder analysis and identification was abstracted as a general input to all levels. For the framework, see Fig.~\ref{fig:framework_picture}.
+
+\vspace{-0.3cm}
+\section{Structure of the Framework}
+\vspace{-0.3cm}
+
+In this section we present the structure of the framework. As illustrated in Fig.~\ref{fig:framework_picture}, it consists of six levels: Business Criticality, Product Criticality, Engagement Strategy, Revealing Strategy, Focus Areas, and Contribution Drivers. These levels are used to frame and explain how the firm engages or should engage with a specific OSS ecosystem. Business and Product Criticality represents the role and importance of the OSS project and its ecosystem in relation to the firm's internal business requirements and product planning. Engagement and Revealing Strategy represents the way in how the firm interacts and contributes to OSS project and its ecosystem. Focus areas is used to separate between parts of an OSS project which are valued differently in terms of previous framework levels. Contributions Drivers are what motivate what, when and to whom a software artifact should be revealed, or where resources should be invested and to what extent, i.e., contribution management. The framework presents a list of possible drivers, but not all may be relevant or even listed. These should be identified and be in alignment with previous framework levels. As input to all framework levels, the firm should perform stakeholder identification and analysis on the OSS ecosystem. The output from the framework (i.e., how an OSS project is viewed in terms of Business and Product Criticality, what strategies are used, and what drivers that are relevant for which focus areas) may differ with time and should be in alignment with the firm's internal product planning, why it can be divided into different time horizons (e.g., Strategic, Tactical, and Operational). Below we present each part of the framework in more detail.
+
+\begin{figure*}[t!]
+\vspace{-0.5cm}
+\centering
+%\vspace{-0.7cm}
+% \hspace*{-2cm}
+\includegraphics[scale=0.45]{img/framework_picture}
+%\vspace{-3cm}
+\caption{Overview of the first iteration of the proposed contribution management framework.}
+\label{fig:framework_picture}
+\vspace{-0.5cm}
+\end{figure*}
+
+\noindent\textbf{Time Horizons:} To capture the short to long-range views, three horizons are defined: (1) the strategic horizon which looks beyond one year, (2) the tactical horizon which looks up to one year ahead, and (3) the operational horizon which is the practice at the current point in time. The precise time intervals are to be adapted relative each firm's internal product planning~\cite{fricker2012software}. The important aspect is how the engagement with the ecosystem should be adapted as time and development progresses.
+
+\noindent\textbf{Ecosystem Stakeholder Population:} What stakeholders that are present and what their agendas are may affect how a firm judges the business criticality of the OSS project, to what extent the firm should engage the ecosystem, and what they choose to reveal, and when~\cite{munir2015open}. E.g., The presence of competitors may affect what is to be considered differential and not. Some stakeholders may be unknown and indirect competitors pending on their agendas~\cite{van2009commodification}. Similarly, the presence of existing and potential partners may offer opportunities for closer collaborations, some of which are too specific or differential to share with the rest of the ecosystem. Knowing who are the most influential and what their interests are may hint how the OSS project's roadmap aligns with the firm’s, how easy it is to affect, but also who that should be influenced to create traction in a direction favorable for the firm~\cite{linaaker2016firms}. Additionally, it may provide an input to if the OSS ecosystem is worth engaging in the first place, and also to help monitor the general health of it~\cite{jansen2009business}.
+
+\noindent\textbf{Business Criticality:} Refers to how the firm draws value~\cite{Aurum2007} from the OSS project and its ecosystem, and how the related business requirements~\cite{wiegers2013software} are defined. From a business model perspective, the business criticality of the OSS may be judged based on the rationale of how it helps the firm to create, deliver, and capture value~\cite{osterwalder2010business}. E.g.,~\cite{chesbrough2007open, west2003open}, as a direct part of the product offering through an open core or platform-extension model, as a basis for support, subscriptions and professional services, or as part of a duel-licensing model. However, it may also be the case that the value comes indirect when the OSS is used as an enabler for the firms’ product offerings, e.g., as a development component or as part in the infrastructure supporting the product. It may also a combination of such direct and indirect factors. E.g., in asymmetric business models, software is made OSS to instead capture value from additional products, services and data gathering that is managed through the OSS~\cite{visionmobile2014assymetric}. Even though considered a difficult process~\cite{Komssi2015}, firms must be able to determine the strategic importance of the OSS in regard to differentiation and added value~\cite{Aurum2007} in order to decide if and how much the firm should invest and interact with the ecosystem~\cite{wnuk2012can}. 
+
+\noindent\textbf{Product Criticality:} Refers to how the firm uses the OSS project in their future plans and actions in regards to their product over a series of releases, i.e., how integrated the OSS project is with the product and how the internal product planning~\cite{fricker2012software} needs to align with that of the OSS project. This affects what requirements need to be present in both or separately, and therefore what should be contributed or not. Further, if the firm uses a product-line approach with an underlying platform from which it creates its products, there may be an interest to contribute back to the OSS project in order to enable reuse. If they focus on developing single products and reuse more opportunistic, there may be less of a long-term perspective so less may be contributed back. 
+%This must not be a binary choice but needs to be recognized as it fundamentally affects how the OSS is viewed in terms of business criticality and in the end what should be contributed and not.
+
+\noindent\textbf{Engagement strategy:} Pending on the business and product criticality of the OSS project, the firm may need to have an influence on the development going on in the ecosystem. By actively engaging and contributing back to the ecosystem firms can increase their level of influence. Dahlander \& Magnusson~\cite{dahlander2005relationships} describes three types of relationships in regards to activity and influence on the ecosystem. Firstly, symbiotic relationships imply giving back to the ecosystem and is associated with a high influence for the firm. Second, commensalistic relationships imply interacting with the ecosystem but to the required minimum, and is associated with a low influence for the firm. Finally, parasitic relationships imply no interaction or giving back to the ecosystem, and is related to no, or very limited influence. Dahlander \& Magnusson~\cite{dahlander2005relationships} highlights that these are to be considered as a continuum. 
+% This is supported by Jansen et al.~\cite{jansen2012shades} who talks about the degree of openness, rather than it being a binary choice between open or closed. 
+
+\noindent\textbf{Revealing strategy:} Pending on the business and product criticality, and the level of engagement, different strategies may be enforced in regards of what to reveal. E.g., by selectively revealing, differentiating parts can be kept closed while commodity parts can be made open~\cite{henkel2006selective, van2009commodification}. Further, with licensing schemas (cf. Dual-licensing~\cite{chesbrough2007open}), parts can be opened fully but under such circumstances that competitors cannot exploit the OSS that may hurt the focal firm~\cite{west2003open}. Alternatively, everything may be disclosed under open and transparent conditions~\cite{chesbrough2007open}, or even closed for that matter. Different strategies may be applied to different parts of an OSS project, as well as combined. 
+
+\noindent\textbf{Focus Area(s):} Areas or modules of strategic importance and/or extra value to the firm. For some OSS projects, it may necessary to consider different parts or sub projects separately in regards to this framework.
+
+\noindent\textbf{Contribution Drivers:} Pending on previous levels in the framework, the firm can identify which drivers that motivate what should be contributed and shared with the OSS ecosystem, and when, but also what resources should be dedicated and to what extent. Those listed in table~\ref{tbl:drivers} are not to be considered exhaustive, nor all relevant per default. There may be further drivers which are specific for the focal firm and how it makes use of the OSS project and its ecosystem.
+
+\begin{table}[t!]
+\centering
+\caption{Contribution Drivers for why to contribute to an OSS project and ecosystem.}
+\label{tbl:drivers}
+\begin{tabular}{p{12.1cm}}
+    \toprule
+    \footnotesize
+\textbf{Compliancy Drivers} 
+    \\ 
+    \midrule
+    \footnotesize
+    Parts required for compliance with licenses, patents, standards, and law.        
+    \\
+    \midrule
+    \footnotesize
+\textbf{Development Drivers}                                              
+    \\     
+    \midrule 
+    \footnotesize
+    Parts that can ease future maintenance and avoid unnecessary internal patch-work 
+    \\ 
+    \footnotesize
+    Parts that may allow for better synced release cycles
+    \\ 
+    \footnotesize
+    Parts that may reduce integration costs
+    \\ 
+    \footnotesize
+    Parts that allows for third party products and services
+    \\ 
+    \footnotesize
+    Parts that would benefit from external development and testing due to lack of internal resources, or a wish for increased quality and innovation
+    \\ 
+    \footnotesize
+    Parts necessary to maintain an absorptive and learning capacity
+    \\ 
+    \footnotesize
+    Parts necessary to keep a low entrance barrier for new developers
+    \\ 
+    \midrule
+    \footnotesize
+\textbf{Strategic \& Governance Drivers:}
+    \\ 
+    \midrule
+    \footnotesize
+    Parts necessary to maintain a common standard in the ecosystem and at the market
+    \\ 
+    \footnotesize
+    Parts that may allow for a first-mover advantage, if in the interest of the firm
+    \\ 
+    \footnotesize
+    Parts that may force a competitor to adapt
+    \\ 
+    \footnotesize
+    Parts required to maintain or reach a certain level in the ecosystem governance hierarchy
+    \\ 
+    \midrule
+    \footnotesize
+\textbf{Relation \& Reputation Drivers:}
+    \\ 
+    \midrule
+    \footnotesize
+    Parts that may add to the firm’s reputation as a competitive edge
+    \\ 
+    \footnotesize
+    Parts necessary to maintain relationships with ecosystem participants or external partners
+    \\ 
+    \footnotesize
+    Parts needed to maintain an open attitude internally of firm
+    \\ 
+    \footnotesize
+    Parts necessary to maintain interest among ecosystem participants and attract others
+    \\ 
+    \footnotesize
+    Parts necessary to maintain competitive edge to other OSS ecosystems
+    \\ 
+    \footnotesize
+    Parts necessary to maintain legitimacy and goodwill among ecosystem participants
+    \\ 
+    \footnotesize
+    Parts requested by ecosystem participants and customers
+    \\ 
+    \footnotesize
+    Parts that may help to identify potential employees
+    \\ 
+    \midrule
+    \footnotesize
+\textbf{Differential Drivers:}
+    \\ 
+    \midrule
+    \footnotesize
+    Parts that may enable internally differential parts
+    \\ 
+    \footnotesize
+    Parts that are non-differentiating for possible competitors in the ecosystem
+    \\ 
+    \footnotesize
+    Parts regarded as commodity
+    \\ \bottomrule
+\end{tabular}
+\vspace{-0.5cm}
+\end{table}
+
+% \noindent\textbf{Compliancy Drivers:} 
+% \begin{itemize}[nosep]\footnotesize
+%     \item Parts required for compliance with licenses, patents, standards, and law.
+% \end{itemize}
+
+% \noindent\textbf{Development Drivers:} 
+% \begin{itemize}[nosep]\footnotesize
+%     \item Parts that can ease future maintenance and avoid unnecessary internal patch-work
+%     \item Parts that may allow for better synced release cycles
+%     \item Parts that may reduce integration costs
+%     \item Parts that allows for third party products and services
+%     \item Parts that would benefit from external development and testing due to lack of internal resources, or a wish for increased quality and innovation
+%     \item Parts necessary to maintain an absorptive and learning capacity
+%     \item Parts necessary to keep a low entrance barrier for new developers
+% \end{itemize}
+
+% \noindent\textbf{Strategic \& Governance Drivers:}
+% \begin{itemize}[nosep]\footnotesize
+%     \item Parts necessary to maintain a common standard in the ecosystem and at the market
+%     \item Parts that may allow for a first-mover advantage, if in the interest of the firm
+%     \item Parts that may force a competitor to adapt
+%     \item Parts required to maintain or reach a certain level in the ecosystem governance hierarchy
+% \end{itemize}
+
+% \noindent\textbf{Relation \& Reputation Drivers:}
+% \begin{itemize}[nosep]\footnotesize
+%     \item Parts that may add to the firm’s reputation as a competitive edge
+%     \item Parts necessary to maintain relationships with ecosystem participants or external partners
+%     \item Parts needed to maintain an open attitude internally of firm
+%     \item Parts necessary to maintain interest among ecosystem participants and attract others
+%     \item Parts necessary to maintain competitive edge to other OSS ecosystems
+%     \item Parts necessary to maintain legitimacy and goodwill among ecosystem participants
+%     \item Parts requested by ecosystem participants and customers
+%     \item Parts that may help to identify potential employees
+% \end{itemize}
+
+% \noindent\textbf{Differential Drivers:}
+% \begin{itemize}[nosep]\footnotesize
+%     \item Parts that may enable internally differential parts
+%     \item Parts that are non-differentiating for possible competitors in the ecosystem
+%     \item Parts regarded as commodity
+% \end{itemize}
+
+
+% \vspace{-0.3cm}
+% \section{Interaction Process}
+% \vspace{-0.3cm}
+% Target audience for the framework are firms engaged in OSS ecosystems. The interaction between the firm and the framework should be managed in a workshop format. As in the traditional roadmapping process~\cite{Komssi2015}, constellation of participants should be cross-functional and include all internal stakeholders concerned with the use of OSS in the firm, e.g., legal, management, product owners, community managers, and developers. In the workshop, each level of the framework should be addressed and discussed to create a unified view of what the current state of practice is. In a second round, all levels should be revisited, but with the attention on how it optimally should look in order for the different levels of the framework to align. 
+
+\vspace{-0.3cm}
+\section{Discussion and Conclusions}
+\vspace{-0.3cm}
+% Contribution strategies help firms to motivate what they should contribute and when, but also what they should focus their resources on and to what extent~\cite{wnuk2012can}. To create such strategies, firms need to understand how they draw value from the OSS project and its ecosystem, i.e., identify the related goal requirements. Further, they need to understand the importance of OSS project and its ecosystem in regards to their internal product roadmap, i.e., how they are related and, as a consequence, how important is it to be able to influence what requirements are implemented in the OSS project. These factors need to align with the reasons for why the firm makes contributions and dedicates resources to the OSS project and its ecosystem, i.e., the requirements scoping process. The rationale behind is to maximize ROI and sustain the influence needed in the ecosystem~\cite{wnuk2012can}. 
+Target audience for the framework are firms engaged in OSS ecosystems. We believe that the interaction between the firm and the framework should be managed in a workshop format. Further, as in the traditional roadmapping process~\cite{Komssi2015}, we believe that the participants should be cross-functional and include those concerned with the use of OSS in the firm, e.g., legal, management, marketing, product managers, project managers, community managers, and developers. In the workshop, each level of the framework should be addressed and discussed to create a unified view of the current state of practice and how it can be optimized in order for the different levels of the framework to align. 
+
+By identifying its contribution drivers, firms may understand what the alternative cost is to not contribute back to an OSS project and its ecosystem. By aligning this to their internal product planning and business requirement, we believe that they can motivate what should be contributed and not. 
+% The current situation and alignment may not be optimal, why the first step for firms using the framework is to establish a view of its current situation. Based on this, they should move forward and improve the alignment through continuous process improvement. 
+For some firms this may be part of an improvement and maturity process in which the firm starts to understand how they should act in order to influence and draw value from the OSS project and its ecosystem. With time firms may realize how they can make use of OSS projects and their ecosystems on a general level, e.g., how to adapt business models, but also to adopt new ones. 
+
+Pending on the ecosystem’s stakeholder population, there may be multiple agendas present, all of which may not align. 
+% The agendas belonging to stakeholders with a higher influence in the ecosystem are of extra importance as they will most likely have the highest impact on the OSS project’s roadmap. 
+The agendas may reveal potential competitors and partners, of which some stakeholders may hold both roles as typical in co-opetition. All these factors impact how an OSS project and its ecosystem should be used and engaged~\cite{munir2015open}. This highlights the importance for stakeholder identification and analysis processes to be in place in order to provide necessary input when working with the framework and the improvement process. By using the same framework in the analysis to profile other stakeholders, a firm may benchmark and learn more about how they can adjust their requirements scoping, e.g., in order to gain better influence in the ecosystem.
+
+In this paper we have created an initial version of our framework based on one design cycle. The initial validation highlights the importance of stakeholder identification and analysis, the need for suggested alignment as well as for context specific contribution strategies in general. 
+
+In future work, we plan to reiterate the framework using further expert validation, and also develop an initial set of workshop guidelines for how the framework may be used in an interactive manner. After stabilization is reached in the structure of the framework, it will be piloted in a workshop format with firms engaged in OSS ecosystems. Consideration will be taken to background of experts and firms to strengthen external validity, e.g., in regards to size of development organization and usage of OSS in relation to the business model of firm, but also type of OSS project and ecosystem population. The long term goal is to create a strategic support for contribution management based on the proposed framework in this research preview. The strategic support should allow for tailored contribution strategies to be created, communicated and followed-up through the development organization. The support should further take input from continuous stakeholder identification and analysis of the concerned ecosystems. The work aims to help firms engaged in OSS ecosystems to gain the influence needed in order to impose their agenda, align their internal RE with the ecosystem's RE and to maximize their ROI.
+
+\vspace{-0.3cm}
+\bibliographystyle{unsrt}
+\bibliography{bibliography_master}
+
+\end{document}

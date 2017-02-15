@@ -1,0 +1,136 @@
+% $ biblatex auxiliary file $
+% $ biblatex version 2.3 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated as
+% required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+\entry{chesbrough2006researching}{book}{}
+  \name{author}{3}{}{%
+    {{}%
+     {Chesbrough}{C.}%
+     {Henry}{H.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Vanhaverbeke}{V.}%
+     {Wim}{W.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {West}{W.}%
+     {Joel}{J.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Oxford university press}%
+  }
+  \strng{namehash}{CHVWWJ1}
+  \strng{fullhash}{CHVWWJ1}
+  \field{sortinit}{C}
+  \field{title}{Open innovation: Researching a new paradigm}
+  \field{year}{2006}
+\endentry
+
+\entry{linaaker2016firms}{incollection}{}
+  \name{author}{4}{}{%
+    {{}%
+     {Lin{\aa}ker}{L.}%
+     {Johan}{J.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Rempel}{R.}%
+     {Patrick}{P.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Regnell}{R.}%
+     {Bj{\"o}rn}{B.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {M{\"a}der}{M.}%
+     {Patrick}{P.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Springer}%
+  }
+  \strng{namehash}{LJ+1}
+  \strng{fullhash}{LJRPRBMP1}
+  \field{sortinit}{L}
+  \field{booktitle}{Requirements Engineering: Foundation for Software Quality}
+  \field{pages}{63\bibrangedash 81}
+  \field{title}{How Firms Adapt and Interact in Open Source Ecosystems:
+  Analyzing Stakeholder Influence and Collaboration Patterns}
+  \field{year}{2016}
+\endentry
+
+\entry{munir2015open}{article}{}
+  \name{author}{3}{}{%
+    {{}%
+     {Munir}{M.}%
+     {Hussan}{H.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Wnuk}{W.}%
+     {Krzysztof}{K.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Runeson}{R.}%
+     {Per}{P.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Springer}%
+  }
+  \strng{namehash}{MHWKRP1}
+  \strng{fullhash}{MHWKRP1}
+  \field{sortinit}{M}
+  \field{pages}{1\bibrangedash 40}
+  \field{title}{Open innovation in software engineering: a systematic mapping
+  study}
+  \field{journaltitle}{Empirical Software Engineering}
+  \field{year}{2015}
+\endentry
+
+\entry{wieringa2014design}{book}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Wieringa}{W.}%
+     {Roel~J}{R.~J.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Springer}%
+  }
+  \strng{namehash}{WRJ1}
+  \strng{fullhash}{WRJ1}
+  \field{sortinit}{W}
+  \field{title}{Design science methodology for information systems and software
+  engineering}
+  \field{year}{2014}
+\endentry
+
+\lossort
+\endlossort
+
+\endinput
