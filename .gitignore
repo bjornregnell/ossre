@@ -11,6 +11,9 @@
 **/*.synctex.gz
 **/*.synctex.gz(busy)
 **/*.toc
+**/*-blx.bib
+**/*.run.xml
+
 
 # Java / Scala
 **/*.class
